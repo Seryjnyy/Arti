@@ -4,12 +4,12 @@
 
 
 validCollections = [
-  {id: "Notts", artefacts: ["axe", "ball"]}
+  {id: "Notts", artefacts: ["feather", "ball"]}
 ]
 
 
-ARTEFACT = "pick";
-COLLECTION = "London";
+ARTEFACT = "";
+COLLECTION = "";
 checkArtefactCompletion();
 
 // localStorage.setItem("userCompletion", JSON.stringify([
@@ -19,7 +19,12 @@ checkArtefactCompletion();
 // ]));
 
 
+
+
 function checkArtefactCompletion() {
+  // localStorage.removeItem("userCompletion")
+
+  // DUPLICATE CODE OF THIS IN QUIZ JS
     var queryString = window.location.search;
     queryString = queryString.substring(1);
     var keyValuePairs = queryString.split("&");
@@ -29,8 +34,8 @@ function checkArtefactCompletion() {
       return;
     }
 
-    const COLLECTION = keyValuePairs[0].split("=")[1];
-    const ARTEFACT = keyValuePairs[1].split("=")[1];
+    COLLECTION = keyValuePairs[0].split("=")[1];
+    ARTEFACT = keyValuePairs[1].split("=")[1];
 
     // check if valid collection
     collectionValid = false;
@@ -66,6 +71,8 @@ function checkArtefactCompletion() {
     // console.log(JSON.parse(store))
     if (store == null) {
         console.log("ERROR::No user completion in local storage");
+        localStorage.setItem("userCompletion", JSON.stringify([]))
+        store = JSON.parse(localStorage.getItem("userCompletion"));
     }
 
     if (store.length == 0) {
@@ -94,6 +101,7 @@ function checkArtefactCompletion() {
         console.log("ERROR::No record for this collection");
         store.push({ id: COLLECTION, artefacts: [] });
         localStorage.setItem("userCompletion", JSON.stringify(store));
+        JSON.parse(localStorage.getItem("userCompletion"));
         // add collection
     }
 
@@ -106,22 +114,24 @@ function checkArtefactCompletion() {
             }
         });
         localStorage.setItem("userCompletion", JSON.stringify(store));
+        JSON.parse(localStorage.getItem("userCompletion"));
         // add artefact
     }
 
+    console.log(store)
     insertButtons(artefactRecord);
 }
 
 function insertButtons(artefactRecord){
   var element = "";
 
-  console.log("insert Buttons")
-  console.log(artefactRecord)
+  // console.log("insert Buttons")
+  // console.log(artefactRecord)
   // quiz one
   // available from start
   // let user know he attempted
   element += "<div>"
-  element += "<button>Quiz one</button>"
+  element += `<button onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}First'\">Quiz one</button>`
   if(artefactRecord.completion.length > 0){
     element += "<p>Already attempted</p>"
   }
@@ -132,7 +142,7 @@ function insertButtons(artefactRecord){
   // available if completed quiz one
   // let user know he attempted
   element += "<div>"
-  element += "<button>Quiz two</button>"
+  element += `<button onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}Second'\">Quiz two</button>`
   if(artefactRecord.completion.length > 1){
     element += "<p>Already attempted</p>"
   }
@@ -152,7 +162,7 @@ function insertButtons(artefactRecord){
 
   element += "</div>";
 
-  console.log(element)
+  // console.log(element)
 
   document.querySelector("#artefact-container").innerHTML = element;
 }

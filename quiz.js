@@ -1,11 +1,13 @@
-quizAttempt = "axeQuiz"
 axeQuizContent = [
     {question : "who went there?", options: ["this", "that", "them", "then"], answer: "this"},
     {question : "next one?", options: ["bat", "rat", "hat", "fat"], answer: "hat"}
 ]
 
 allQuizzes = [
-    {id : "axeQuiz", content: axeQuizContent, timeConstraint: 60}
+    {id : "axeFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "axeSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
+    {id : "featherFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "featherSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
 ]
 
 totalQuestionAmount = 0;
@@ -14,24 +16,45 @@ currentQuiz = [];
 score = 0;
 timerID = -1;
 time = 0;
+alreadyAttempted = false;
 
-switch(quizAttempt){
-    case allQuizzes[0].id:
-        setupAxeQuiz(allQuizzes[0]);
-        break;
+determineQuiz();
+
+function determineQuiz(){
+    var urlParameter = window.location.search;
+    urlParameter = urlParameter.substring(1);
+    var pairs = urlParameter.split("&");
+    
+    if(pairs.length < 3){
+      console.log("ERROR:: Not enough URL parameters")
+      return;
+    }
+    
+    const quizCollection = pairs[0].split("=")[1];
+    const quizArtefact = pairs[1].split("=")[1];
+    alreadyAttempted = pairs[2].split("=")[1] === "true";
+
+    console.log(alreadyAttempted)
+
+    for(let i = 0; i < allQuizzes.length; i++){
+        if(allQuizzes[i].id == quizArtefact && allQuizzes[i].collection == quizCollection){
+            setupAxeQuiz(allQuizzes[i]);
+        }
+    }
+
 }
 
 function setupAxeQuiz(quiz){
-    currentQuiz = quiz.content;
-    totalQuestionAmount = currentQuiz.length;
+    currentQuiz = quiz;
+    totalQuestionAmount = currentQuiz.content.length;
     currentQuestion = 0;
     time = quiz.timeConstraint;
 
     insertQuiz();
 
     // set up first question
-    insertQuestion(currentQuiz[0].question);
-    insertOptions(currentQuiz[0].options);
+    insertQuestion(currentQuiz.content[0].question);
+    insertOptions(currentQuiz.content[0].options);
 
     // start timer, not trusted solution
     // v better one but not needed rn
@@ -81,7 +104,7 @@ function handleNextQuestion(){
 
 
     // check answer
-    if(userAnswer === currentQuiz[currentQuestion].answer){
+    if(userAnswer === currentQuiz.content[currentQuestion].answer){
         // let user know
         correctAnswer();
         score++;
@@ -98,24 +121,76 @@ function handleNextQuestion(){
         document.querySelector("#quiz-current-question").innerHTML = currentQuestion;
 
         // end of quiz
-        if(currentQuestion >= currentQuiz.length){
-            console.log("getting heres")
+        if(currentQuestion >= currentQuiz.content.length){
             // display results
             insertResult();
             // save 
             // result, time, 
+            var store = JSON.parse(localStorage.getItem("userCompletion"));
 
+            // localStorage.setItem("userCompletion");
+            // already attempted = can unlock next quiz, but can't improve score
+            // so can set completed to true but not update score etc.
+            console.log(store)
+
+            var collectionExists = false;
+            var artefactExists = false;
+            store.forEach(entry => {
+                if(entry.id == currentQuiz.collection){
+                    entry.artefacts.forEach((artefact) => {
+
+                        if(artefact.id == currentQuiz.id.split(/(?=[A-Z])/)[0]){
+                            
+
+                            var entryForQuizExists = false;
+                            console.log("artefact completion: " + artefact.completion)
+                            artefact.completion.forEach((quizRecord) => {
+                                
+                                if(quizRecord.id === currentQuiz.id.split(/(?=[A-Z])/)[1].toLowerCase()){
+                                    entryForQuizExists = true;
+                                    // check attempted
+
+                                    quizRecord.completed = score >= currentQuiz.scoreRequirement
+                                    
+                                    if(!alreadyAttempted){
+                                        completed = score >= currentQuiz.scoreRequirement, // based on score percent
+                                        scorePercent = score / currentQuiz.content.length, // based on score and total score 
+                                        timeLeftPercent = time / currentQuiz.timeConstraint  // based on time left left and initial time
+                                    }
+    
+                                    localStorage.setItem("userCompletion", JSON.stringify(store));
+
+                                }
+                            })
+
+                            if(!entryForQuizExists){
+                                // insert the entire thing
+                                artefact.completion.push({
+                                    id: currentQuiz.id.split(/(?=[A-Z])/)[1].toLowerCase(),
+                                    completed: score >= currentQuiz.scoreRequirement, // based on score percent
+                                    scorePercent: score / currentQuiz.content.length, // based on score and total score 
+                                    timeLeftPercent: time / currentQuiz.timeConstraint  // based on time left left and initial time
+                                })
+
+                                localStorage.setItem("userCompletion", JSON.stringify(store));
+                                console.log(artefact)
+                            }
+
+                        }
+                    });
+                }
+            });
 
             return;
         }
             
 
-        insertQuestion(currentQuiz[currentQuestion].question);
-        insertOptions(currentQuiz[currentQuestion].options);
+        insertQuestion(currentQuiz.content[currentQuestion].question);
+        insertOptions(currentQuiz.content[currentQuestion].options);
 
         // re-enable answer button
         document.querySelector("#quiz-answer-button").style.display = "block";
-    }, 200);
+    }, 10);
 }
 
 function correctAnswer(){
