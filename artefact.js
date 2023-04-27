@@ -3,13 +3,13 @@
 // load in buttons
 
 
-validCollections = [
+const validCollections = [
   {id: "Notts", artefacts: ["feather", "ball"]}
 ]
 
 
-ARTEFACT = "";
-COLLECTION = "";
+var ARTEFACT = "";
+var COLLECTION = "";
 checkArtefactCompletion();
 
 // localStorage.setItem("userCompletion", JSON.stringify([
