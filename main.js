@@ -14,10 +14,10 @@ switch (getModelName()) {
 
 function setUpAR() {
   document.querySelector("#app").innerHTML = `
-  <a-scene arjs>
+  <a-scene vr-mode-ui="enabled: false" arjs>
     <a-marker preset="hiro" id="arMarker">
     </a-marker>
-    <a-entity camera position="1 0 1"></a-entity>
+    <a-entity camera></a-entity>
   </a-scene>
 `;
 }
