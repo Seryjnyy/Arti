@@ -1,22 +1,22 @@
-axeQuizContent = [
+const axeQuizContent = [
     {question : "who went there?", options: ["this", "that", "them", "then"], answer: "this"},
     {question : "next one?", options: ["bat", "rat", "hat", "fat"], answer: "hat"}
 ]
 
-allQuizzes = [
+const allQuizzes = [
     {id : "axeFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
     {id : "axeSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
     {id : "featherFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
     {id : "featherSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
 ]
 
-totalQuestionAmount = 0;
-currentQuestion = 0;
-currentQuiz = [];
-score = 0;
-timerID = -1;
-time = 0;
-alreadyAttempted = false;
+var totalQuestionAmount = 0;
+var currentQuestion = 0;
+var currentQuiz = [];
+var score = 0;
+var timerID = -1;
+var time = 0;
+var alreadyAttempted = false;
 
 determineQuiz();
 

@@ -1,9 +1,9 @@
-collections = [
+const collections = [
     {id : "Notts", artefacts: [{id: "feather"}, {id: "ball"}]},
     {id : "London", artefacts: [{id: "car"}, {id: "baseball"}]}
 ]
 
-element = ""
+var element = ""
 
 var userCompletion = JSON.parse(localStorage.getItem("userCompletion"));
 

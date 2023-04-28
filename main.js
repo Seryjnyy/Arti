@@ -1,5 +1,3 @@
-import { setupCounter } from "./counter.js";
-
 setUpAR();
 
 switch (getModelName()) {
