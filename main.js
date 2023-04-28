@@ -13,8 +13,8 @@ switch (getModelName()) {
 }
 
 function setUpAR() {
-  document.querySelector("body").innerHTML = `
-  <a-scene embedded arjs>
+  document.querySelector("#app").innerHTML = `
+  <a-scene arjs>
     <a-marker preset="hiro" id="arMarker">
     </a-marker>
     <a-entity camera position="1 0 1"></a-entity>
@@ -44,5 +44,3 @@ function getModelName() {
 
   return pair[1];
 }
-
-setupCounter(document.querySelector("#counter"));
