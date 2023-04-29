@@ -4,7 +4,7 @@ const axeQuizContent = [
 ]
 
 const allQuizzes = [
-    {id : "axeFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "axeFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2,},
     {id : "axeSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
     {id : "featherFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
     {id : "featherSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},

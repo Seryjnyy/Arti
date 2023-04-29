@@ -1,8 +1,3 @@
-// take URL parameter
-// check if user has data in local storage about this artefact
-// load in buttons
-
-
 const validCollections = [
   {id: "Notts", artefacts: ["feather", "ball"]}
 ]
@@ -25,9 +20,10 @@ function checkArtefactCompletion() {
   // localStorage.removeItem("userCompletion")
 
   // DUPLICATE CODE OF THIS IN QUIZ JS
-    var queryString = window.location.search;
-    queryString = queryString.substring(1);
-    var keyValuePairs = queryString.split("&");
+  // DUPLICATE CODE OF THIS IN MAIN JS
+    var urlParameter = window.location.search;
+    urlParameter = urlParameter.substring(1);
+    var keyValuePairs = urlParameter.split("&");
 
     if(keyValuePairs.length < 2){
       console.log("ERROR:: Not enough URL parameters")
@@ -38,8 +34,8 @@ function checkArtefactCompletion() {
     ARTEFACT = keyValuePairs[1].split("=")[1];
 
     // check if valid collection
-    collectionValid = false;
-    artefactValid = false;
+    var collectionValid = false;
+    var artefactValid = false;
     validCollections.forEach((entry) => {
       if(entry.id == COLLECTION){
         collectionValid = true;
@@ -156,7 +152,7 @@ function insertButtons(artefactRecord){
   // view model
   // available if completed quiz one
   element += "<div>"
-  element += "<button onclick=\"location.href='/ar.html?model=feather'\">View model</button>"
+  element += `<button onclick=\"location.href='/ar.html?collection=${COLLECTION}&artefact=${ARTEFACT}'\">View model</button>`
 
   // need a way back to the artefact page from the model
 
