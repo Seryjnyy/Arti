@@ -1,13 +1,13 @@
 const axeQuizContent = [
-    {question : "who went there?", options: ["this", "that", "them", "then"], answer: "this"},
+    {question : "Who went there and then when over there?", options: ["this", "that", "them", "then"], answer: "this"},
     {question : "next one?", options: ["bat", "rat", "hat", "fat"], answer: "hat"}
 ]
 
 const allQuizzes = [
-    {id : "axeFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2,},
-    {id : "axeSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
-    {id : "featherFirst", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
-    {id : "featherSecond", collection: "Notts",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "axeFirst", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2,},
+    {id : "axeSecond", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
+    {id : "featherFirst", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "featherSecond", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
 ]
 
 var totalQuestionAmount = 0;
@@ -17,6 +17,9 @@ var score = 0;
 var timerID = -1;
 var time = 0;
 var alreadyAttempted = false;
+
+var quizCollection = "";
+var quizArtefact = "";
 
 determineQuiz();
 
@@ -30,8 +33,9 @@ function determineQuiz(){
       return;
     }
     
-    const quizCollection = pairs[0].split("=")[1];
-    const quizArtefact = pairs[1].split("=")[1];
+    quizCollection = pairs[0].split("=")[1];
+    quizArtefact = pairs[1].split("=")[1];
+
     alreadyAttempted = pairs[2].split("=")[1] === "true";
 
     console.log(alreadyAttempted)
@@ -42,6 +46,7 @@ function determineQuiz(){
         }
     }
 
+    insertDir(quizCollection, quizArtefact);
 }
 
 function setupAxeQuiz(quiz){
@@ -190,31 +195,30 @@ function handleNextQuestion(){
 
         // re-enable answer button
         document.querySelector("#quiz-answer-button").style.display = "block";
-    }, 10);
+    }, 1000);
 }
 
 function correctAnswer(){
-    document.querySelector('#quiz-options').innerHTML = "<div>Correct</div>";
+    document.querySelector('#quiz-options').innerHTML = "<div  class='mt-8 text-green-600 text-2xl'>Correct</div>";
 }
 
 function incorrectAnswer(){
-    document.querySelector('#quiz-options').innerHTML = "<div>Incorrect</div>";
+    document.querySelector('#quiz-options').innerHTML = "<div class='mt-8 text-red-600 text-2xl'>Incorrect</div>";
 }
 
 
 function insertQuestion(question){
-    document.querySelector('#quiz-question').innerHTML = "<h1>" + question + "</h1>";
+    document.querySelector('#quiz-question').innerHTML = "<h1 class='text-4xl mt-2 mb-8 text-left'>" + question + "</h1>";
 }
 
 function insertOptions(options){
-    optionElement = "";
+    var optionElement = "";
     
     for(let i = 0; i < options.length; i++){
         optionElement += `
-        <div>
+        <div class="mb-3">
             <input id="option-${i}" value="${options[i]}" type="radio" name="option" class="radio" />
             <label for="option-${i}" id="option-${i}-label">${options[i]}</label>
-            <hr/>
         </div>
         `
     }
@@ -233,7 +237,7 @@ function saveAttempt(){
 function insertQuiz(){
     document.querySelector('#quiz-container').innerHTML = `
     <div class="flex flex-col items-center">
-        <div class="flex">
+        <div class="flex justify-between gap-5">
             <h1>Time: <span id="quiz-timer">0</span> </h1>
             <h1>Score : <span id="quiz-score">0</span> / ${totalQuestionAmount}</h1>
             <h1>Question : <span id="quiz-current-question">0</span> / ${totalQuestionAmount}</h1>
@@ -244,16 +248,32 @@ function insertQuiz(){
         <div id="quiz-options">
         </div>
         <div>
-            <button id="quiz-answer-button" onclick="handleNextQuestion()" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Next question</button>
+            <button id="quiz-answer-button" class="bg-transparent mt-6 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Next question</button>
         </div>
     </div>
 </div>
   `
+  document.querySelector('#quiz-answer-button').addEventListener("click", handleNextQuestion);
 }
+insertResult();
 
 function insertResult(){
     document.querySelector('#quiz-container').innerHTML = `
-    <div>well done</div>
+    <h1 class="text-2xl">Well done!!</h1>
     <div>Score : ${score} / ${totalQuestionAmount} </div>
+    <button
+    id="quiz-back-to-artefact"
+    class="bg-blue-500 mt-8 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
+    >Back to artefact</button>
     `
+    document.querySelector("#quiz-back-to-artefact").addEventListener("click", () => {
+        var artefactSplit = quizArtefact.split(/(?=[A-Z])/);
+        location.href=`artefact.html?collection=${quizCollection}&artefact=${artefactSplit[0]}`
+    })
+
 }
+
+function insertDir(){
+    var artefactSplit = quizArtefact.split(/(?=[A-Z])/);
+    document.querySelector("#artefact-dir").innerHTML = `<h1>${quizCollection + "/" + artefactSplit[0] + "/" + artefactSplit[1].toLowerCase() + " quiz"}</h1> <hr>`
+  }

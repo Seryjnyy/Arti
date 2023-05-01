@@ -1,20 +1,18 @@
 const validCollections = [
-  {id: "Notts", artefacts: ["feather", "ball"]}
+  {id: "UON-MOA", artefacts: ["feather", "ball"]}
 ]
 
 
 var ARTEFACT = "";
 var COLLECTION = "";
 checkArtefactCompletion();
+insertDir()
 
 // localStorage.setItem("userCompletion", JSON.stringify([
 //     {id: "Notts", artefacts: [{id: "axe", completion: [{completed: true, timeRemaining: 12, scorePercent: 52}, {completed: false, timeRemaining: 0, scorePercent: 0}]}, {id: "ball", completion: [{completed: true, timeRemaining: 1, scorePercent: 22}]}]},
 //     {id: "Leeds", artefacts: []},
 //     {id: "Brum", artefacts: [{id: "shovel", completion: [{completed: true, timeRemaining: 99, scorePercent: 32}]}]}
 // ]));
-
-
-
 
 function checkArtefactCompletion() {
   // localStorage.removeItem("userCompletion")
@@ -126,8 +124,11 @@ function insertButtons(artefactRecord){
   // quiz one
   // available from start
   // let user know he attempted
-  element += "<div>"
-  element += `<button onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}First'\">Quiz one</button>`
+  element += "<div class='mt-6 flex flex-col items-center'>"
+  element += `<button 
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
+  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}First'\">Quiz one</button>`
+
   if(artefactRecord.completion.length > 0){
     element += "<p>Already attempted</p>"
   }
@@ -137,22 +138,31 @@ function insertButtons(artefactRecord){
   // quiz two
   // available if completed quiz one
   // let user know he attempted
-  element += "<div>"
-  element += `<button onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}Second'\">Quiz two</button>`
+  element += "<div class='mt-6 flex flex-col items-center'>"
+  element += `<button 
+  ${artefactRecord.completion.length > 1 ? "" : "disabled"}
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
+  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}Second'\">Quiz two</button>`
   if(artefactRecord.completion.length > 1){
     element += "<p>Already attempted</p>"
-  }
-
-  if(artefactRecord.completion.length == 1){
+  }else if(artefactRecord.completion.length == 1){
     element += "<p>Inspect the model before attempting this quiz</p>"
+  }else if(artefactRecord.completion.length == 0){
+    element += "<p>Complete quiz one to unlock this one.</p>"
   }
 
   element += "</div>";
 
   // view model
   // available if completed quiz one
-  element += "<div>"
-  element += `<button onclick=\"location.href='/ar.html?collection=${COLLECTION}&artefact=${ARTEFACT}'\">View model</button>`
+  element += "<div class='mt-6 flex flex-col items-center'>"
+  element += `<button 
+  ${artefactRecord.completion.length > 1 ? "" : "disabled"}
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
+  onclick=\"location.href='/ar.html?collection=${COLLECTION}&artefact=${ARTEFACT}'\">View model</button>`
+  if(artefactRecord.completion.length < 1){
+    element += "<p>Complete quiz one to view the model.</p>"
+  }
 
   // need a way back to the artefact page from the model
 
@@ -163,3 +173,6 @@ function insertButtons(artefactRecord){
   document.querySelector("#artefact-container").innerHTML = element;
 }
 
+function insertDir(){
+  document.querySelector("#artefact-dir").innerHTML = `<h1>${COLLECTION + "/" + ARTEFACT}</h1> <hr>`
+}
