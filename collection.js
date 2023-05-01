@@ -21,7 +21,7 @@ function something(){
 
     var element = ""
 
-    element += "<h1 class='text-2xl'>Your collection</h1>"
+    element += "<h1 class='text-2xl mb-4'>Your collection</h1>"
 
     collections.forEach(entry => {
         element += `<div class="mb-6">`;
@@ -56,7 +56,7 @@ function something(){
     
             element += "<div class='flex w-screen justify-between px-8 text-lg bg-slate-200 "  + (!hasArtefact ? 'opacity-60' : '') + "'>"
             element += `<a href="artefact.html?collection=${entry.id}&artefact=${artefact.id}" `+ (!hasArtefact ? 'style="pointer-events: none"' : "") + `>${artefact.id}</a>`
-            element += `<div >${hasArtefact}</div>`
+            // element += `<div >${hasArtefact}</div>`
             element += `<div class="${bgColour}" >${artefact.rarity}</div>`
             element += "</div>"
         })
@@ -87,12 +87,12 @@ function calculateLevel(){
                 }
             })
 
+            // base for discovering artefact
+            points += 50 * rarityModifier;
+
             // go through all quizzes
             artefact.completion.forEach(quizCompletion => {
-                    // base for discovering artefact
-                    points += 50 * rarityModifier;
-    
-                    // for completing artefact
+                    // for completing quiz
                     if(quizCompletion.completed){
                         points += 100 * rarityModifier;
                     }
@@ -107,6 +107,12 @@ function calculateLevel(){
 
         })
     })
+
+    // pull in extra points
+    var extraPoints = JSON.parse(localStorage.getItem("extraPoints"));
+    if(extraPoints != null){
+        points += extraPoints;
+    }
 
     // do something with points
     insertUserLevel(points);

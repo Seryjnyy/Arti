@@ -255,7 +255,7 @@ function insertQuiz(){
   `
   document.querySelector('#quiz-answer-button').addEventListener("click", handleNextQuestion);
 }
-insertResult();
+
 
 function insertResult(){
     document.querySelector('#quiz-container').innerHTML = `

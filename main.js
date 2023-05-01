@@ -28,7 +28,9 @@ function setUpAR() {
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
-  <button class="text-white fixed top-0 left-0" onclick=\"location.href='/artefact.html?collection=${collection}&artefact=${artefact}'\">Something</button>
+  <button 
+  class="absolute top-2 right-2 bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded-full text-sm" 
+  onclick=\"location.href='/artefact.html?collection=${collection}&artefact=${artefact}'\">Back to artefact</button>
 `;
 }
 
@@ -44,7 +46,7 @@ function insertModelEntity(modelLocation) {
 
 function getModelName() {
   switch(collection){
-    case "Notts":
+    case "UON-MOA":
       switch(artefact){
         case "feather":
           insertModelEntity("/models/featherHD.glb");

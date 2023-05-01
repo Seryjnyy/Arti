@@ -7,13 +7,33 @@
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <!-- we import arjs version without NFT but with marker + location based support -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-
+    
     <link href="/output.css" rel="stylesheet">
-    <title>Vite App</title>
+    <title>Arti</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="flex flex-col items-center mt-16">
+      <div>
+        <h1 class="text-7xl font-semibold">Welcome to,</h1>
+        <h1 class="text-7xl font-semibold text-purple-400">Arti!</h1>
+      </div>
+      <div class="flex mt-20 px-6 justify-between gap-5 md:gap-10 lg:gap-20 flex-wrap">
+        <p class="w-66 md:w-60 text-lg">The University of Nottingham Archeology Museum expansion now available!</p>
+        <button id="home-collection-button" class="bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-1 rounded-full text-sm">Check your collection</button>
+      </div>
+      <div class="flex flex-col items-center mt-16">
+        <h1 class="mb-2 text-xl font-semibold">Get Started</h1>
+        <div>
+          <ul class="list-decimal px-8">
+            <li class="mb-1 text-gray-600">Go to a supported museum.</li>
+            <li class="mb-1 text-gray-600">Find artefacts with scannable QR codes and scan them to add to your collection.</li>
+            <li class="mb-1 text-gray-600">Answer quizzes based on the artefact to unlock a digital version of it.</li>
+          </ul>
 
+        </div>
+      </div>
+    </div>
   </body>
-  <script type="module" src="/main.js"></script>
+
+  <script type="module" src="/home.js"></script>
 </html>

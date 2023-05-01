@@ -125,12 +125,13 @@ function insertButtons(artefactRecord){
   // available from start
   // let user know he attempted
   element += "<div class='mt-6 flex flex-col items-center'>"
+  element += "<h1 class='text-2xl font-semibold mb-4'>Quiz</h1>"
   element += `<button 
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" 
-  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}First'\">Quiz one</button>`
+  class="bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded-full text-sm" 
+  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}First&completed=${(artefactRecord.completion.length > 0) == true}'\">Quiz one</button>`
 
   if(artefactRecord.completion.length > 0){
-    element += "<p>Already attempted</p>"
+    element += "<p class='text-sm text-gray-600'>*Already attempted</p>"
   }
 
   element += "</div>";
@@ -140,28 +141,29 @@ function insertButtons(artefactRecord){
   // let user know he attempted
   element += "<div class='mt-6 flex flex-col items-center'>"
   element += `<button 
-  ${artefactRecord.completion.length > 1 ? "" : "disabled"}
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
-  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}Second'\">Quiz two</button>`
+  ${artefactRecord.completion.length >= 1 ? "" : "disabled"}
+  class="bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded-full text-sm" 
+  onclick=\"location.href='/quiz.html?collection=${COLLECTION}&artefact=${ARTEFACT}Second&completed=${(artefactRecord.completion.length > 0) == true}'\">Quiz two</button>`
   if(artefactRecord.completion.length > 1){
-    element += "<p>Already attempted</p>"
+    element += "<p class='text-sm text-gray-600'>*Already attempted</p>"
   }else if(artefactRecord.completion.length == 1){
-    element += "<p>Inspect the model before attempting this quiz</p>"
+    element += "<p class='text-sm text-gray-600'>*Inspect the model before attempting this quiz</p>"
   }else if(artefactRecord.completion.length == 0){
-    element += "<p>Complete quiz one to unlock this one.</p>"
+    element += "<p class='text-sm text-gray-600'>*Complete quiz one to unlock this one.</p>"
   }
 
   element += "</div>";
 
   // view model
   // available if completed quiz one
-  element += "<div class='mt-6 flex flex-col items-center'>"
+  element += "<div class='mt-12 flex flex-col items-center'>"
+  element += "<h1 class='text-2xl font-semibold mb-4'>AR model</h1>"
   element += `<button 
-  ${artefactRecord.completion.length > 1 ? "" : "disabled"}
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded "
+  ${artefactRecord.completion.length >= 1 ? "" : "disabled"}
+  class="bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded-full text-sm" 
   onclick=\"location.href='/ar.html?collection=${COLLECTION}&artefact=${ARTEFACT}'\">View model</button>`
   if(artefactRecord.completion.length < 1){
-    element += "<p>Complete quiz one to view the model.</p>"
+    element += "<p class='text-sm text-gray-600'>*Complete quiz one to view the model.</p>"
   }
 
   // need a way back to the artefact page from the model
