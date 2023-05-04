@@ -24,9 +24,10 @@ function getURLParameters(){
 function setUpAR() {
   document.querySelector("#app").innerHTML = `
   <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
-    <a-marker preset="hiro" id="arMarker">
-    </a-marker>
-    <a-entity camera></a-entity>
+  
+  <a-marker preset="hiro" id="arMarker"></a-marker>
+
+    <a-entity camera position="0 0 0"></a-entity>
   </a-scene>
   <button 
   class="absolute top-2 right-2 bg-purple-400 h-10 min-w-fit hover:bg-purple-500 text-white font-semibold py-1 px-2 rounded-full text-sm" 
@@ -39,7 +40,7 @@ function insertModelEntity(modelLocation) {
   <a-entity
   position="0 0 0"
   gltf-model=${modelLocation}
-  scale="10 10 10"
+  scale="1 1 1"
   ></a-entity> 
 `;
 }
@@ -52,7 +53,7 @@ function getModelName() {
           insertModelEntity("/models/featherHD.glb");
           break;
         case "ball":
-          insertModelEntity("/models/ball.glb");
+          insertModelEntity("/models/under.glb");
             break;
       }
       break;

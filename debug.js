@@ -55,27 +55,62 @@ class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 bor
 element += "</div>"
 
 // Go to artifact two 
+// element += "<div class='flex'>" 
+
+// element += `<button 
+// id="debug-artefact-two-button"
+// class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+// >Artefact 2</button>`
+
+// element += `<button 
+// id="debug-artefact-two-view-model-button"
+// class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+// >View model</button>`
+
+// element += `<button 
+// id="debug-artefact-two-complete-quiz-one-button"
+// class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+// >Complete quiz 1</button>`
+
+// element += `<button 
+// id="debug-artefact-two-complete-quiz-two-button"
+// class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+// >Complete quiz 2</button>`
+
+// element += "</div>"
+
+// Add view test models
 element += "<div class='flex'>" 
 
 element += `<button 
-id="debug-artefact-two-button"
+id="debug-test-under-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
->Artefact 2</button>`
+>Test under</button>`
 
 element += `<button 
-id="debug-artefact-two-view-model-button"
+id="debug-test-above-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
->View model</button>`
+>Test above</button>`
 
 element += `<button 
-id="debug-artefact-two-complete-quiz-one-button"
+id="debug-test-side-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
->Complete quiz 1</button>`
+>Test side</button>`
+
+element += "</div>"
+
+element += "<div class='flex'>" 
 
 element += `<button 
-id="debug-artefact-two-complete-quiz-two-button"
+id="debug-test-under-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
->Complete quiz 2</button>`
+>Test tiny</button>`
+
+element += `<button 
+id="debug-test-above-button"
+class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+>Test huge</button>`
+
 
 element += "</div>"
 
@@ -105,30 +140,30 @@ document.querySelector("#debug-artefact-one-view-model-button").addEventListener
     location.href=`ar.html?collection=UON-MOA&artefact=feather`
 })
 
-document.querySelector("#debug-artefact-one-complete-quiz-one-button").addEventListener("click", () => {
-    var store = JSON.parse(localStorage.getItem("userCompletion"));
+// document.querySelector("#debug-artefact-one-complete-quiz-one-button").addEventListener("click", () => {
+//     var store = JSON.parse(localStorage.getItem("userCompletion"));
 
-    // store.forEach(element => {
-    //     if(element.id == "UON-MOA"){
-    //         element.artefacts.forEach(artefact => {
-    //             if(artefact.id == "ball"){
-    //                 artefact.
-    //             }
-    //         })
-    //     }
-    // });
-})
+//     // store.forEach(element => {
+//     //     if(element.id == "UON-MOA"){
+//     //         element.artefacts.forEach(artefact => {
+//     //             if(artefact.id == "ball"){
+//     //                 artefact.
+//     //             }
+//     //         })
+//     //     }
+//     // });
+// })
 
 
 // Artefact 2
 
-document.querySelector("#debug-artefact-two-button").addEventListener("click", () => {
-    location.href=`artefact.html?collection=UON-MOA&artefact=ball`
-})
+// document.querySelector("#debug-artefact-two-button").addEventListener("click", () => {
+//     location.href=`artefact.html?collection=UON-MOA&artefact=ball`
+// })
 
-document.querySelector("#debug-artefact-two-view-model-button").addEventListener("click", () => {
-    location.href=`ar.html?collection=UON-MOA&artefact=ball`
-})
+// document.querySelector("#debug-artefact-two-view-model-button").addEventListener("click", () => {
+//     location.href=`ar.html?collection=UON-MOA&artefact=ball`
+// })
 
 // Extra point buttons
 document.querySelector("#debug-add-extra-points-button").addEventListener("click", () => {
