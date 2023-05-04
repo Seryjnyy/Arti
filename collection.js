@@ -1,6 +1,6 @@
 const collections = [
-    {id : "UON-MOA", name: "The University of Nottingham Museum of Archaeology", artefacts: [{id: "feather", rarity: 2}, {id: "ball", rarity: 0}]},
-    {id : "London", name: "London museum", artefacts: [{id: "car", rarity: 0}, {id: "baseball", rarity: 1}]}
+    {id : "UON-MOA", name: "The University of Nottingham Museum of Archaeology", artefacts: [{id: "axe", rarity: 2}]},
+    {id : "London", name: "London museum", artefacts: [{id: "bucket", rarity: 0}, {id: "comb", rarity: 1}]}
 ]
 
 

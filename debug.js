@@ -102,12 +102,12 @@ element += "</div>"
 element += "<div class='flex'>" 
 
 element += `<button 
-id="debug-test-under-button"
+id="debug-test-tiny-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
 >Test tiny</button>`
 
 element += `<button 
-id="debug-test-above-button"
+id="debug-test-huge-button"
 class="mt-6 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
 >Test huge</button>`
 
@@ -120,7 +120,7 @@ element += "</div>"
 
 // end debug content
 
-element += "<button id='debug-toggle'> DEBUG </button>"
+element += "<button id='debug-toggle' class='text-xl'> DEBUG </button>"
 
 document.querySelector("#debug").innerHTML = element;
 
@@ -130,14 +130,42 @@ document.querySelector("#debug-reset-button").addEventListener("click", () => {
     location.reload();
 })
 
+// under 
+document.querySelector("#debug-test-under-button").addEventListener("click", () => {
+    location.href=`ar.html?collection=UON-MOA&artefact=under`
+})
+
+// above
+document.querySelector("#debug-test-above-button").addEventListener("click", () => {
+    location.href=`ar.html?collection=UON-MOA&artefact=above`
+})
+
+// side
+document.querySelector("#debug-test-side-button").addEventListener("click", () => {
+    location.href=`ar.html?collection=UON-MOA&artefact=otherSide`
+})
+
+
+
+// tiny
+document.querySelector("#debug-test-tiny-button").addEventListener("click", () => {
+    location.href=`ar.html?collection=UON-MOA&artefact=tiny`
+})
+
+// huge
+document.querySelector("#debug-test-huge-button").addEventListener("click", () => {
+    location.href=`ar.html?collection=UON-MOA&artefact=huge`
+})
+
+
 // Artefact 1
 
 document.querySelector("#debug-artefact-one-button").addEventListener("click", () => {
-    location.href=`artefact.html?collection=UON-MOA&artefact=feather`
+    location.href=`artefact.html?collection=UON-MOA&artefact=axe`
 })
 
 document.querySelector("#debug-artefact-one-view-model-button").addEventListener("click", () => {
-    location.href=`ar.html?collection=UON-MOA&artefact=feather`
+    location.href=`ar.html?collection=UON-MOA&artefact=axe`
 })
 
 // document.querySelector("#debug-artefact-one-complete-quiz-one-button").addEventListener("click", () => {

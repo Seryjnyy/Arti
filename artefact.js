@@ -1,5 +1,5 @@
 const validCollections = [
-  {id: "UON-MOA", artefacts: ["feather", "ball"]}
+  {id: "UON-MOA", artefacts: ["axe"]}
 ]
 
 

@@ -35,12 +35,17 @@ function setUpAR() {
 `;
 }
 
-function insertModelEntity(modelLocation) {
+function insertModelEntity(modelLocation, scale) {
+  var scaleStr = "1 1 1";
+  if(scale != ""){
+      scaleStr = scale;
+  }
+
   document.querySelector("#arMarker").innerHTML = `
   <a-entity
   position="0 0 0"
   gltf-model=${modelLocation}
-  scale="1 1 1"
+  scale=${scaleStr}
   ></a-entity> 
 `;
 }
@@ -49,13 +54,23 @@ function getModelName() {
   switch(collection){
     case "UON-MOA":
       switch(artefact){
-        case "feather":
-          insertModelEntity("/models/featherHD.glb");
+        case "axe":
+          insertModelEntity("/models/axe.glb", "");
           break;
-        case "ball":
-          insertModelEntity("/models/under.glb");
+        case "under":
+          insertModelEntity("/models/under.glb", "");
+            break;
+        case "above":
+          insertModelEntity("/models/tower.glb", "");
+            break;
+        case "tiny":
+          insertModelEntity("/models/axe.glb", "0.1 0.1 0.1");
+            break;
+        case "huge":
+          insertModelEntity("/models/axe.glb", "10 10 10");
             break;
       }
+
       break;
       default:
         console.log("ERROR: no matching collection")

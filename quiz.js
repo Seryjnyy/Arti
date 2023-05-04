@@ -1,13 +1,17 @@
-const axeQuizContent = [
-    {question : "Who went there and then when over there?", options: ["this", "that", "them", "then"], answer: "this"},
-    {question : "next one?", options: ["bat", "rat", "hat", "fat"], answer: "hat"}
+const axeFirstQuizContent = [
+    {question : "Through which technique did the Beaker people create shields, buckets and cauldrons?", options: ["Casting", "Beating", "Aggregating", "Smelting"], answer: "Beating"},
+    {question : "What was added to Bronze to make it stronger?", options: ["Iron", "Mercury", "Copper", "Lead"], answer: "Lead"},
+    {question : "What did the Beaker people begin doing instead of burials and stone circles?", options: ["Cremation", "Burial at Sea", "Resomation", "Mausoleum"], answer: "Cremation"},
+    {question : "When did the Beaker people come to Britain?", options: ["Around 1000BC", "Around 1500BC", "Around 2500BC", "Late 500BC"], answer: "Around 2500BC"}
+]
+
+const axeSecondQuizContent = [
+    {question : "What was an axe called in the early Bronze Age?", options: ["Siekra", "Palstave", "Axe", "Woodfall"], answer: "Palstave"},
 ]
 
 const allQuizzes = [
-    {id : "axeFirst", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2,},
-    {id : "axeSecond", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 120, scoreRequirement: 2},
-    {id : "featherFirst", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
-    {id : "featherSecond", collection: "UON-MOA",  content: axeQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "axeFirst", collection: "UON-MOA",  content: axeFirstQuizContent, timeConstraint: 60, scoreRequirement: 2},
+    {id : "axeSecond", collection: "UON-MOA",  content: axeSecondQuizContent, timeConstraint: 60, scoreRequirement: 2},
 ]
 
 var totalQuestionAmount = 0;
@@ -64,6 +68,7 @@ function setupAxeQuiz(quiz){
     // start timer, not trusted solution
     // v better one but not needed rn
     // https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
+    
     timerID = setInterval(() => {
         if(time > 0){
             time--;
